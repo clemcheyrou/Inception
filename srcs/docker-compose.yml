@@ -1,0 +1,31 @@
+version: "3"
+services:
+nginx:
+  container_name: nginx
+  build: requirements/nginx
+  env_file: .env
+  ports:
+  - 443 #https
+  restart: always
+  networks:
+    - network42
+
+# wordpress:
+#   container_name: wordpress
+#   build: requirements/wordpress
+#   depends_on:
+#     - mariadb
+#   networks:
+#     - network42
+#   ports:
+#     - "80:80"
+#   volumes: 
+#     - ./html:/var/www/html #les fichiers du site WordPress
+
+# mariadb:
+#   container_name: mariadb
+#   build: requirements/mariadb
+#   networks:
+#     - network42
+#   volumes:
+#     - ./database:/var/lib/mysql #base de données WordPress
