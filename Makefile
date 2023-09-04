@@ -3,27 +3,27 @@ all: up
 up:
 	@mkdir -p ${HOME}/inception_data/mariadb
 	@mkdir -p ${HOME}/inception_data/wordpress
-	@docker-compose -f srcs/docker-compose.yml up --build
+	@sudo docker-compose -f srcs/docker-compose.yml up --build
 
 clean: stop
-	docker system prune -a -f --volumes
+	sudo docker system prune -a -f --volumes
 
 clear: clean
-	docker volume rm wordpress mariadb
+	sudo docker volume rm wordpress mariadb
 
 stop:
-	docker-compose -f srcs/docker-compose.yml down
+	sudo docker-compose -f srcs/docker-compose.yml down
 
 re: clean all
 
 show:
-	docker ps
-	docker volume ls -q
-	docker container ls -q
+	sudo docker ps
+	sudo docker volume ls -q
+	sudo docker container ls -q
 
 logs:
-	docker logs wordpress
-	docker logs mariadb
-	docker logs nginx
+	sudo docker logs wordpress
+	sudo docker logs mariadb
+	sudo docker logs nginx
 
 .PHONY: up clean stop re clear show logs
