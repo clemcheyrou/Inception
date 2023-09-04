@@ -1,31 +1,63 @@
 version: "3"
 services:
-nginx:
-  container_name: nginx
-  build: requirements/nginx
-  env_file: .env
-  ports:
-  - 443 #https
-  restart: always
-  networks:
-    - network42
+  mariadb:
+    container_name: mariadb
+    networks:
+      - network42
+    build: ./requirements/mariadb
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql 
+    expose:
+      - "3306"
+    restart: always
 
-# wordpress:
-#   container_name: wordpress
-#   build: requirements/wordpress
-#   depends_on:
-#     - mariadb
-#   networks:
-#     - network42
-#   ports:
-#     - "80:80"
-#   volumes: 
-#     - ./html:/var/www/html #les fichiers du site WordPress
+  nginx:
+    container_name: nginx
+    networks:
+      - network42
+    build: ./requirements/nginx
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/wordpress
+    restart: always
+    env_file:
+      - .env
 
-# mariadb:
-#   container_name: mariadb
-#   build: requirements/mariadb
-#   networks:
-#     - network42
-#   volumes:
-#     - ./database:/var/lib/mysql #base de données WordPress
+  wordpress:
+    container_name: wordpress
+    networks:
+      - network42
+    build: ./requirements/wordpress
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    # ports:
+    #   - "80:80"
+    volumes: 
+      - wordpress:/var/www/wordpress
+    expose:
+      - "9000"
+
+volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+        type: volumes
+        o: bind
+        device: /home/ccheyrou/inception_data/mariadb
+  wordpress:
+    driver: local
+    driver_opts:
+        type: volumes
+        o: bind
+        device: /home/ccheyrou/inception_data/wordpress
+
+networks:
+  network42:
+      driver: bridge
