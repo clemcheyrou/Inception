@@ -1,8 +1,8 @@
 all: up
 
 up:
-	@mkdir -p /home/inception/inception_data/mariadb
-	@mkdir -p /home/inception/inception_data/wordpress
+	@mkdir -p ${HOME}/inception_data/mariadb
+	@mkdir -p ${HOME}/Inception/inception_data/wordpress
 	@sudo docker-compose -f srcs/docker-compose.yml up --build
 
 clean: stop
