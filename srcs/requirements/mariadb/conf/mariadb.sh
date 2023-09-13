@@ -11,4 +11,6 @@ echo "FLUSH PRIVILEGES;" >> file
 
 mysqld --user=mysql --verbose --bootstrap < file
 
+rm file
+
 exec mysqld_safe
