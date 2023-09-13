@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   mariadb:
     container_name: mariadb
@@ -21,7 +21,7 @@ services:
     depends_on:
       - wordpress
     ports:
-      - "443:443"
+      - 443:443
     volumes:
       - wordpress:/var/www/html
     env_file:
@@ -36,8 +36,6 @@ services:
       - mariadb
     env_file:
       - .env
-    ports:
-      - "80:80"
     volumes: 
       - wordpress:/var/www/html
     expose:

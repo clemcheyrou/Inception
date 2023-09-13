@@ -15,6 +15,8 @@ stop:
 	sudo docker-compose -f srcs/docker-compose.yml down
 
 re: clean all
+	rm -rf /home/inception/inception_data/mariadb
+	rm -rf /home/inception/inception_data/wordpress
 
 show:
 	sudo docker ps

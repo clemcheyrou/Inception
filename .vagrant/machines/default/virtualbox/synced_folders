@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/inception":{"guestpath":"/home/inception","hostpath":"/mnt/nfs/homes/ccheyrou/inception","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/mnt/nfs/homes/ccheyrou/inception","disabled":false,"__vagrantfile":true}}}
