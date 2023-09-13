@@ -13,7 +13,7 @@ services:
       - wordpress:/var/www/html
     env_file:
       - .env
-      
+
   wordpress:
     container_name: wordpress
     networks:
@@ -42,20 +42,19 @@ services:
     restart: always
 
 
-
 volumes:
   mariadb:
     driver: local
     driver_opts:
         type: volumes
         o: bind
-        device: /home/vagrant/inception_data/mariadb
+        device: root/inception_data/mariadb
   wordpress:
     driver: local
     driver_opts:
         type: volumes
         o: bind
-        device: /home/vagrant/inception_data/wordpress
+        device: root/inception_data/wordpress
 
 networks:
   network42:
