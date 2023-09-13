@@ -29,7 +29,5 @@ RUN apt update -y && apt install mariadb-server mariadb-client gettext-base -y
 COPY	./conf/50-server.cnf /var/.
 COPY	./conf/mariadb.sh /var/.
 RUN		chown mysql:mysql /var/lib/mysql
-# COPY ./conf/init.sql /var/.
 
-CMD		["tail", "-f", "/dev/null"]
-# CMD ["sh", "/var/script.sh" ]
+CMD ["sh", "/var/script.sh" ]
