@@ -1,0 +1,12 @@
+Log created: 2023-09-13T15:11:57.332401000Z
+Process ID:  576032 (0x8ca20)
+Parent PID:  575528 (0x8c828)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: inception_default_1694606041678_96527
+Arg[3]: --startvm
+Arg[4]: 724faaf5-5149-4563-8d09-e0c2a676f493
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2
