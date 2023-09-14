@@ -2,6 +2,9 @@
 
 set -x
 
+touch file
+chmod 777
+
 echo "CREATE DATABASE IF NOT EXISTS '$MYSQL_DATABASE';" >> file
 echo "FLUSH PRIVILEGES;" >> file
 echo "GRANT ALL ON *.* TO '$MYSQL_ROOT_USER'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;" >> file
