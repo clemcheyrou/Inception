@@ -1,4 +1,5 @@
-!/bin/bash
+#!/bin/bash
+
 set -x
 
 echo "CREATE DATABASE IF NOT EXISTS '$MYSQL_DATABASE';" >> file
