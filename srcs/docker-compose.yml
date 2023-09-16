@@ -2,8 +2,6 @@ version: '3'
 services:
   mariadb:
     container_name: mariadb
-    networks:
-      - network42
     build: ./requirements/mariadb
     env_file:
       - .env
@@ -11,39 +9,38 @@ services:
       - mariadb:/var/lib/mysql/ 
     expose:
       - "3306"
-    restart: unless-stopped
-
-  nginx:
-    container_name: nginx
     networks:
       - network42
-    build: ./requirements/nginx
-    depends_on:
-      - wordpress
-    ports:
-      - "443:443"
-    volumes:
-      - wordpress:/var/www/wordpress
-    env_file:
-      - .env
-    restart: on-failure
+    restart: unless-stopped
+
 
   wordpress:
     container_name: wordpress
-    networks:
-      - network42
     build: ./requirements/wordpress
-    depends_on:
-      - mariadb
     env_file:
       - .env
+    depends_on:
+      - mariadb
     volumes: 
       - wordpress:/var/www/wordpress
     expose:
       - "9000"
-    restart: on-failure
+    networks:
+      - network42
+    restart: unless-stopped
 
-
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - network42
+    restart: unless-stopped
 
 volumes:
   mariadb:

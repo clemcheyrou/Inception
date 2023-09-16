@@ -25,12 +25,12 @@ FROM debian:buster
 
 RUN apt update -y && apt install mariadb-server mariadb-client gettext-base -y
 
-RUN     mkdir -p /run/mysqld && chown mysql:root /run/mysqld
-
-COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
-COPY	./conf/mariadb.sh /var/mariadb.sh
-RUN		chown mysql:mysql /var/lib/mysql
-
 EXPOSE	3306
 
-CMD ["sh", "/var/mariadb.sh" ]
+COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
+COPY	./conf/mariadb.sh /var/www/
+RUN		chown mysql:mysql /var/lib/mysql
+
+RUN service mysql start && mysql < /var/www/mariadb.sql && rm -f /var/www/mariadb.sql;
+
+CMD ["mysqld"]
