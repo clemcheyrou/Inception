@@ -17,8 +17,6 @@ RUN		chmod 755 /var/www/wordpress
 
 COPY	/conf/wp-setup.sh /var/wp-setup.sh
 
-RUN		chmod +x /etc/wp-setup.sh
-
 RUN		apt-get update && apt-get upgrade -y
 RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN		chmod +x wp-cli.phar
@@ -30,4 +28,4 @@ WORKDIR /var/www/wordpress
 
 ENTRYPOINT  ["tail", "-f", "/dev/null"]
 
-# CMD		["bash", "/etc/wp-setup.sh"]
+# CMD		["bash", "/var/wp-setup.sh"]
