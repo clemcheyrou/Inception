@@ -12,6 +12,4 @@ echo "FLUSH PRIVILEGES;" | mysql
 
 echo "CREATE DATABASE $MYSQL_DATABASE;" | mysql
 
-kill $(cat /var/run/mysqld/mysqld.pid)
-
 mysqld
