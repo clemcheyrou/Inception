@@ -30,3 +30,4 @@ sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 usermod -aG docker vagrant
+

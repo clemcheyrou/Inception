@@ -18,7 +18,6 @@
 
 
 # #CMD		["sh", "/var/mariadb.sh"]
-# CMD		["tail", "-f", "/dev/null"]
 
 
 FROM debian:buster
@@ -32,4 +31,5 @@ RUN		chown mysql:mysql /var/lib/mysql
 
 EXPOSE	3306
 
-CMD ["sh", "/var/mariadb.sh" ]
+# CMD ["sh", "/var/mariadb.sh" ]
+CMD		["tail", "-f", "/dev/null"]

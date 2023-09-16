@@ -12,6 +12,5 @@ Vagrant.configure("2") do |config|
   
     # Provisioning with a shell script
     config.vm.provision "shell", privileged: true, path: "./scripts/setup.sh"
-    config.vm.network 'forwarded_port', guest: 3306, host: 3306
 
   end
