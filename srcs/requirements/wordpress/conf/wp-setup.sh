@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 sleep 10
 
 if ! wp core is-installed --allow-root  ; then

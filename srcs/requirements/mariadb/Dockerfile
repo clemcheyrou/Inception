@@ -31,5 +31,5 @@ RUN		chown mysql:mysql /var/lib/mysql
 
 EXPOSE	3306
 
-# CMD ["sh", "/var/mariadb.sh" ]
-CMD		["tail", "-f", "/dev/null"]
+CMD ["sh", "/var/mariadb.sh" ]
+# CMD		["tail", "-f", "/dev/null"]
