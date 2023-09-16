@@ -23,16 +23,13 @@
 
 FROM debian:buster
 
-RUN apt update -y && apt install mariadb-server vim procps -y
+RUN apt update -y && apt install mariadb-server mariadb-client gettext-base -y
+
+
+COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
+COPY	./conf/mariadb.sh /var/mariadb.sh
+RUN		chown mysql:mysql /var/lib/mysql
 
 EXPOSE	3306
 
-COPY	./conf/mariadb.sh /var/mariadb.sh
-RUN 	chmod +x /var/mariadb.sh
-
-RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf 
-COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d
-
-# RUN		chown mysql:mysql /var/lib/mysql
-
-ENTRYPOINT ["sh", "/var/mariadb.sh" ]
+CMD ["sh", "/var/mariadb.sh" ]
