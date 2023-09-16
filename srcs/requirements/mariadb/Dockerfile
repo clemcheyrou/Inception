@@ -28,9 +28,8 @@ RUN apt update -y && apt install mariadb-server mariadb-client gettext-base -y
 EXPOSE	3306
 
 COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
-COPY	./conf/mariadb.sql /var/www/
+COPY	./conf/mariadb.sh /var/mariadb.sh
+RUN 	chmod +x /var/mariadb.sh
 RUN		chown mysql:mysql /var/lib/mysql
 
-RUN service mysql start && mysql < /var/www/mariadb.sql && rm -f /var/www/mariadb.sql;
-
-CMD ["mysqld"]
+CMD ["sh", "/var/mariadb.sh" ]

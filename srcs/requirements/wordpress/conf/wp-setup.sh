@@ -1,18 +1,19 @@
 #!/bin/bash
 
-sleep 10
+sleep 8;
+if  [ ! -f /var/www/wordpress/wp-config.php ]; then 
+    
+    wp core --allow-root download --locale=fr_FR --force 
+    sleep 5;
+    while  [ ! -f /var/www/wordpress/wp-config.php ]; do   
 
-if ! wp core is-installed --allow-root  ; then
-	wp core download --allow-root --force
-	wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER--dbpass=$MYSQL_PASSWORD --dbhost=localhost --path='/var/www/wordpress'--allow-root --force
-	wp core install --url="ccheyrou.42.fr" --title="Inception" --admin_user=$WORDPRESS_DB_ADMIN_USER --admin_password=$WORDPRESS_DB_ADMIN_PASSWORD --admin_email="ccheyrou@student.42.fr" --allow-root
-	wp user create $WORDPRESS_DB_USER ccheyrou@student.42.fr --role=author --user_pass=$WORDPRESS_DB_PASSWORD --allow-root
-	wp config shuffle-salts --allow-root
-fi
+        
+        wp core config --allow-root --dbname=wordpress --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb:3306
+        
 
-if wp core is-installed --allow-root  ; then
-    echo "Wordpress is installed and running"
-    php-fpm7.3 -F -R
-else
-    echo "Wordpress's installation failed"
-fi
+    done 
+    wp core install --allow-root --url='ccheyrou.42.fr' --title='WordPress for Inception' --admin_user=$WORDPRESS_DB_USER --admin_password=$WORDPRESS_DB_PASSWORD  --admin_email="admin@admin.fr" --path='/var/www/wordpress';
+    wp  user create --allow-root ccheyrou user2@user.com --user_pass='1234' --role=author
+    wp theme install --allow-root dark-mode --activate     
+fi 
+php-fpm7.3 --nodaemonize
