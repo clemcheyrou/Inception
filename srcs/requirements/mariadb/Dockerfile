@@ -27,9 +27,12 @@ RUN apt update -y && apt install mariadb-server vim procps -y
 
 EXPOSE	3306
 
-COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
 COPY	./conf/mariadb.sh /var/mariadb.sh
 RUN 	chmod +x /var/mariadb.sh
-RUN		chown mysql:mysql /var/lib/mysql
+
+RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf 
+COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d
+
+# RUN		chown mysql:mysql /var/lib/mysql
 
 ENTRYPOINT ["sh", "/var/mariadb.sh" ]
