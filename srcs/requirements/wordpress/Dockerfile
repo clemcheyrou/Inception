@@ -28,6 +28,6 @@ EXPOSE	9000
 
 WORKDIR /var/www/wordpress
 
-#ENTRYPOINT  ["tail", "-f", "/dev/null"]
+ENTRYPOINT  ["tail", "-f", "/dev/null"]
 
-CMD		["bash", "/etc/wp-setup.sh"]
+# CMD		["bash", "/etc/wp-setup.sh"]
