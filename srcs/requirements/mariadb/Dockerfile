@@ -25,7 +25,7 @@ FROM debian:buster
 RUN apt update -y && apt install mariadb-server mariadb-client gettext-base -y
 
 
-COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf.test
+COPY	conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
 COPY	./conf/mariadb.sh /var/mariadb.sh
 RUN		chown mysql:mysql /var/lib/mysql
 
