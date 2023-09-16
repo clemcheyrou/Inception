@@ -2,19 +2,16 @@
 
 set -x
 
-touch file
-chmod 777
+service mysql start 
 
-echo "CREATE DATABASE IF NOT EXISTS '$MYSQL_DATABASE';" >> file
-echo "FLUSH PRIVILEGES;" >> file
-echo "GRANT ALL ON *.* TO '$MYSQL_ROOT_USER'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;" >> file
-echo "FLUSH PRIVILEGES;" >> file
-echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> file
-echo "GRANT ALL ON '$MYSQL_DATABASE'.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"  >> file
-echo "FLUSH PRIVILEGES;" >> file
+echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql
 
-mysqld --user=mysql --verbose --bootstrap < file
+echo "GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" | mysql
+echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';" | mysql
+echo "FLUSH PRIVILEGES;" | mysql
 
-rm file
+echo "CREATE DATABASE $MYSQL_DATABASE;" | mysql
 
-exec mysqld_safe
+kill $(cat /var/run/mysqld/mysqld.pid)
+
+mysqld
