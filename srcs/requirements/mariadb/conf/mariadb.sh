@@ -1,20 +1,20 @@
 #!/bin/bash
 
+FILE_PATH=/tmp/file
 set -x
-touch file
-chmod 777 file
+touch $FILE_PATH
 
-echo "CREATE DATABASE IF NOT EXISTS wordpress;" >> file
-echo "FLUSH PRIVILEGES;" >> file
-echo "GRANT ALL ON *.* TO '$MYSQL_ROOT_USER'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;" >> file
-echo "FLUSH PRIVILEGES;" >> file
-echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> file
-echo "GRANT ALL ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"  >> file
-echo "FLUSH PRIVILEGES;" >> file
+echo "CREATE DATABASE IF NOT EXISTS wordpress;" >> $FILE_PATH
+echo "FLUSH PRIVILEGES;" >> $FILE_PATH
+echo "GRANT ALL ON *.* TO '$MYSQL_ROOT_USER'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD' WITH GRANT OPTION;" >> $FILE_PATH
+echo "FLUSH PRIVILEGES;" >> $FILE_PATH
+echo "CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> $FILE_PATH
+echo "GRANT ALL ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"  >> $FILE_PATH
+echo "FLUSH PRIVILEGES;" >> $FILE_PATH
 
-# cat file
+# cat $FILE_PATH
+service mysql start
+mysqld --user=mysql --verbose --bootstrap < $FILE_PATH
+service mysql stop
 
-mysqld --user=mysql --verbose --bootstrap < file
-rm file
-
-exec mysqld
+exec mysqld_safe
