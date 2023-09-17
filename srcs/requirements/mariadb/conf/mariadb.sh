@@ -14,6 +14,7 @@ echo "FLUSH PRIVILEGES;" >> $FILE_PATH
 
 # cat $FILE_PATH
 service mysql start
+sleep 10
 mysqld --user=mysql --verbose --bootstrap < $FILE_PATH
 service mysql stop
 

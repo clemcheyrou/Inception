@@ -8,10 +8,9 @@ Vagrant.configure("2") do |config|
     config.vm.provider "virtualbox" do |vb|
       vb.memory = memory # Need to up the size or vboxmanage return an error
       vb.cpus = cpus
-      vb.gui = true
     end
   
     # Provisioning with a shell script
     config.vm.provision "shell", privileged: true, path: "./scripts/setup.sh"
-
+    config.vm.network "private_network", type: "dhcp", virtualbox__intnet: "42net", auto_config: false
   end
