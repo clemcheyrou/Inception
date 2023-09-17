@@ -13,9 +13,9 @@ echo "GRANT ALL ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWO
 echo "FLUSH PRIVILEGES;" >> $FILE_PATH
 
 # cat $FILE_PATH
-service mysql start
-sleep 10
+# service mysql start
+# sleep 10
 mysqld --user=mysql --verbose --bootstrap < $FILE_PATH
-service mysql stop
+# service mysql stop
 
 exec mysqld_safe
