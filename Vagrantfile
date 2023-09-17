@@ -8,6 +8,7 @@ Vagrant.configure("2") do |config|
     config.vm.provider "virtualbox" do |vb|
       vb.memory = memory # Need to up the size or vboxmanage return an error
       vb.cpus = cpus
+      vb.gui = true
     end
   
     # Provisioning with a shell script

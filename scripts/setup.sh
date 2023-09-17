@@ -31,3 +31,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 usermod -aG docker vagrant
 
+sudo apt install gnome-shell -y 2>&1 > /dev/null
+
+sudo gnome-session
+
+sudo reboot now
+
