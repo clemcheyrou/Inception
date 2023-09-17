@@ -48,13 +48,13 @@ volumes:
     driver_opts:
         type: volumes
         o: bind
-        device: /home/vagrant/inception_data/mariadb
+        device: /home/ccheyrou/inception_data/mariadb
   wordpress:
     driver: local
     driver_opts:
         type: volumes
         o: bind
-        device: /home/vagrant/inception_data/wordpress
+        device: /home/ccheyrou/inception_data/wordpress
 
 networks:
   network42:
