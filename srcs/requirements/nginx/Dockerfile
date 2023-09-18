@@ -6,10 +6,10 @@ RUN apt-get update && \
 RUN mkdir -p /etc/nginx/ssl
 
 #CLE ET CERTIFICAT TSL
-RUN openssl req -x509 -nodes \
+RUN openssl req -x509 -days 3650 -nodes \
 	-out /etc/nginx/ssl/inception.crt \
 	-keyout /etc/nginx/ssl/inception.key \
-	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=ccheyrou.42.fr/UID=ccheyrou"
+	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=localhost"
 
 RUN mkdir -p /var/run/nginx
 
@@ -21,3 +21,5 @@ RUN chown -R www-data:www-data /var/www/html
 
 
 CMD [ "nginx", "-g", "daemon off;" ]
+
+EXPOSE 443
