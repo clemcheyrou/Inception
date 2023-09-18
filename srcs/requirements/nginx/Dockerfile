@@ -1,24 +1,17 @@
-FROM debian:buster
+FROM	debian:buster
 
-RUN apt-get update && \
-	apt-get install -y nginx openssl
+RUN		apt update -y && apt upgrade -y
+RUN		apt install -y nginx openssl
 
-RUN mkdir -p /etc/nginx/ssl
+RUN		mkdir -p /etc/nginx/ssl
+RUN		openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
+		-keyout /etc/nginx/ssl/inception.key -subj \
+		"/C=FR/ST=IDF/L=PARIS/0=42/OU=42/CN=ccheyrou.42.fr/UID=ccheyrou"
 
-#CLE ET CERTIFICAT TSL
-RUN openssl req -x509 -days 3650 -nodes \
-	-out /etc/nginx/ssl/inception.crt \
-	-keyout /etc/nginx/ssl/inception.key \
-	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=ccheyrou"
+RUN		mkdir -p /var/run/nginx
 
-RUN mkdir -p /var/run/nginx
+COPY	./conf/nginx.conf /etc/nginx/nginx.conf
+RUN		mkdir -p /var/www/html && chmod 755 /var/www/html
+RUN		chown -R www-data:www-data /var/www/html
 
-COPY conf/nginx.conf /etc/nginx.conf
-
-RUN	mkdir -p /var/www/html
-RUN chmod 755 /var/www/html
-RUN chown -R www-data:www-data /var/www/html
-
-EXPOSE 443
-
-CMD [ "nginx", "-g", "daemon off;" ]
+CMD		["nginx", "-g", "daemon off;"]
