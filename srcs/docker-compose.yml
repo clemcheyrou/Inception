@@ -7,8 +7,8 @@ services:
       - .env
     volumes:
       - mariadb:/var/lib/mysql/ 
-    expose:
-      - "3306"
+    # expose:
+    #   - "3306"
     networks:
       - network42
     restart: always
@@ -23,8 +23,8 @@ services:
       - mariadb
     volumes: 
       - wordpress:/var/www/wordpress
-    expose:
-      - "9000"
+    # expose:
+    #   - "9000"
     networks:
       - network42
     restart: always

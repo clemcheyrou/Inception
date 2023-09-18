@@ -22,10 +22,9 @@ RUN		wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.p
 RUN		chmod +x wp-cli.phar
 RUN		mv wp-cli.phar /usr/local/bin/wp
 
-EXPOSE	9000
-
 WORKDIR /var/www/wordpress
 
+EXPOSE	9000
 # ENTRYPOINT  ["/bin/bash"]
 
 CMD		["bash", "/var/wp-setup.sh"]
